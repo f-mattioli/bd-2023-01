@@ -138,3 +138,19 @@ WHERE nome = 'Prego';
 DELETE FROM pecas
 WHERE nome = 'Prego';
 
+--
+-- Exemplo: information schema
+--
+SELECT 
+    c.constraint_name AS "CONSTRAINT", 
+    k.table_name AS "TABLE", 
+    k.column_name AS "COLUMN",
+    c.table_name AS "REF TABLE", 
+    c.column_name AS "REF COLUMN" 
+FROM 
+    information_schema.constraint_column_usage c 
+    JOIN information_schema.key_column_usage k 
+        ON c.constraint_name = k.constraint_name 
+WHERE 
+    c.table_schema = 'public'
+    AND c.constraint_name LIKE '%fkey';
